@@ -1,0 +1,90 @@
+<form name="forms" novalidate>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="ibox float-e-margins ">
+                <div class="ibox-title">
+                    <h5><span gumga-translate-tag="paymentmethods.paymentmethods">Payment Methods</span></h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label gumga-translate-tag="paymentmethods.type">Type</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="btn-group" ng-init="typeAux = ''">
+                                <button class="btn"
+                                        ng-click="typeAux = treePattern[1];objAux = {name:objAux.name}"
+                                        ng-class="typeAux == treePattern[1]?'btn-default':'btn-white'"
+                                        type="button"><span gumga-translate-tag="paymentmethods.paymentcategory">Payment category</span>
+                                </button>
+                                <button class="btn"
+                                        ng-click="typeAux = treePattern[2];objAux = {name:objAux.name,description:objAux.description}; focusName = true"
+                                        ng-class="typeAux == treePattern[2]?'btn-default':'btn-white'"
+                                        type="button"><span
+                                        gumga-translate-tag="paymentmethods.paymentmethod">Payment Method</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row m-t">
+                        <div class="col-md-12">
+                            <label for="name" gumga-translate-tag="paymentmethods.name">name</label>
+                            <input id="name" type="text" name="name" ng-model="objAux.name" class="form-control"
+                                   ng-disabled="typeAux == ''"/>
+                        </div>
+                    </div>
+                    <div class="row m-t">
+                        <div class="col-md-6" ng-show="typeAux == treePattern[2]">
+                            <label gumga-translate-tag="paymentmethods.federalrevenue">Federal Revenue</label>
+                            <ui-select ng-model="objAux.method" on-select="getSelectedPayment($item)">
+                                <ui-select-match>{{$select.selected.label}}</ui-select-match>
+                                <ui-select-choices repeat="pay.key as pay in paymentMethodsList | filter: $select.search">
+                                    <div ng-bind-html="pay.label | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                        <div class="col-md-5">
+                            <div ng-if="typeAux == treePattern[2]">
+                                <label for="descrition" gumga-translate-tag="paymentmethods.icon">Icon</label>
+                                <input id="descrition" type="text" name="descrition" ng-model="objAux.icon"
+                                       class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="col-md-1 m-t" style="margin-top: 26px;">
+                            <span class="{{objAux.icon}} fa-2x"></span>
+                        </div>
+                    </div>
+                    <div class="row m-t">
+                        <div class="pull-right container-fluid">
+                            <button ng-click="objAux = addNew(objAux,typeAux)" ng-disabled="invalidAddButton(typeAux, objAux)" grands-button="add"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins ">
+                <div class="ibox-title">
+                    <h5><span gumga-translate-tag="paymentmethods.paymenthierarchy">Payment Hierarchy</span></h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <grands-category-tree list="array" model-list="list" charac-origin="PAYMENT" pattern="treePattern"
+                                              type-attribute="paymentMethodsTypes" delete-functions="deleteFunctions"
+                                              get-childrens="getChildrens(id,type)"></grands-category-tree>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pull-right">
+        <button type="button" grands-button="return" ui-sref="home" ng-show="entity.id"></button>
+        <button type="button" grands-button="cancel" ui-sref="home" ng-hide="entity.id"></button>
+        <button type="button" grands-button="save" ng-click="update(list)" ng-disabled="forms.$invalid"></button>
+    </div>
+</form>

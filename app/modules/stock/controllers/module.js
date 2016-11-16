@@ -1,0 +1,1 @@
+angular.module('app.stock.controllers', ['app.stock.services', 'ui.router']);

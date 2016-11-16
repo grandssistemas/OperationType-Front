@@ -1,0 +1,110 @@
+<form name="forms" novalidate>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="ibox float-e-margins ">
+                <div class="ibox-title">
+                    <h5><span gumga-translate-tag="stock.title">Title</span></h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label gumga-translate-tag="stock.type">Type</label>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="btn-group" ng-init="typeAux = ''">
+                                <button class="btn"
+                                        ng-click="typeAux = treePattern[2];objAux = {name:objAux.name,description:objAux.description}; focusName = true;createObject();"
+                                        ng-class="typeAux == treePattern[2]?'btn-default':'btn-white'"
+                                        type="button"><span
+                                        gumga-translate-tag="stock.typeofoperation">Type of Operation</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="name" gumga-translate-tag="stock.name">name</label>
+                            <input id="name" type="text" name="name" ng-model="objAux.name" class="form-control"
+                                   ng-disabled="typeAux == ''"/>
+
+                            <div ng-if="typeAux == treePattern[1]">
+                                <label for="descrition" gumga-translate-tag="stock.descrition">Descrition</label>
+                                <input id="descrition" type="text" name="descrition" ng-model="objAux.descrition"
+                                       class="form-control"/>
+                            </div>
+
+                            <div ng-if="typeAux == treePattern[2]">
+                                <label gumga-translate-tag="stock.invoiceobjective">Invoice Objective</label>
+                                <select class="form-control" ng-model="objAux.invoiceObjective"
+                                        ng-options="df.key as df.label for df in documentFinalityList">
+                                </select>
+                            </div>
+                            <div ng-if="typeAux == treePattern[2]">
+                                <label gumga-translate-tag="stock.operationcategory">Operation Category</label> <strong
+                                    class="text-danger">*</strong>
+                                <select class="form-control" ng-model="objAux.operationCategory"
+                                        ng-options="oc.key as oc.label for oc in operationCategoryList">
+                                </select>
+                            </div>
+                            <div ng-if="typeAux == treePattern[2]">
+                                <div class="row">
+                                    <div class="col-md-4 m-t">
+                                        <grands-check model="objAux.fixedCharacteristics.allowFreight"
+                                                      label="stock.allowFreight"></grands-check>
+                                    </div>
+                                    <div class="col-md-4 m-t">
+                                        <grands-check model="objAux.fixedCharacteristics.allowStockMovement"
+                                                      label="stock.allowStockMovement"></grands-check>
+                                    </div>
+                                    <div class="col-md-4 m-t">
+                                        <grands-check model="objAux.fixedCharacteristics.allowCashMovement"
+                                                      label="stock.allowCashMovement"></grands-check>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 m-t">
+                                        <grands-check model="objAux.fixedCharacteristics.allowNFe"
+                                                      label="stock.allowNfe"></grands-check>
+                                    </div>
+                                    <div class="col-md-4 m-t">
+                                        <grands-check model="objAux.fixedCharacteristics.allowNFCe"
+                                                      label="stock.allowNFce"></grands-check>
+                                    </div>
+                                    <div class="col-md-4 m-t">
+                                        <grands-check model="objAux.fixedCharacteristics.quickSale"
+                                                      label="stock.quickSale"></grands-check>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary pull-right m-t" ng-click="objAux = addNew(objAux,typeAux)"
+                                    ng-disabled="typeAux == '' || objAux.name == null || objAux.name == ''"><span class="fa fa-plus"></span> <span
+                                    gumga-translate-tag="stock.add">add</span>
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins ">
+                <div class="ibox-title">
+                    <h5><span gumga-translate-tag="stock.entranceandexit">Entrance and Exit</span></h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <grands-category-tree list="array" model-list="list" pattern="treePattern" charac-origin="OPERATION"
+                                              type-attribute="stockType" get-childrens="getChildrens(id,type)"
+                        update-entity="editOperation(data)" enable-remove="removable(data)"
+                        delete-functions="deleteFunctions"></grands-category-tree>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pull-right">
+        <button type="button" grands-button="return" ui-sref="home" ng-show="entity.id"></button>
+        <button type="button" grands-button="cancel" ui-sref="home" ng-hide="entity.id"></button>
+        <button type="button" grands-button="save" ng-click="update(list)" ng-disabled="forms.$invalid"></button>
+    </div>
+</form>
