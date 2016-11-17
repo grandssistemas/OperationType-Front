@@ -1,0 +1,49 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-5">
+                            <button type="button" ui-sref="businessrule.insert" grands-button="new"></button>
+                        </div>
+                        <div class="col-md-7">
+                            <gumga-query search="businessrule.methods.search(field, param)" advanced-search="businessrule.methods.advancedSearch(param)">
+                                <search-field field="name" label="{{'name'|gumgaTranslate:'businessrule'}}" select="true"></search-field>
+                                <search-field field="maximumdiscount" label="{{'maximumdiscount'|gumgaTranslate:'businessrule'}}"></search-field>
+                                <search-field field="entryvalue" label="{{'entryvalue'|gumgaTranslate:'businessrule'}}"></search-field>
+                                <search-field field="parcelscount" label="{{'parcelscount'|gumgaTranslate:'businessrule'}}"></search-field>
+                                <search-field field="negotiationinterval" label="{{'negotiationinterval'|gumgaTranslate:'businessrule'}}"></search-field>
+                                <advanced-search-field type="string" label="{{'maximumdiscount'|gumgaTranslate:'businessrule'}}" field="maximumdiscount"></advanced-search-field>
+                                <advanced-search-field type="string" label="{{'entryvalue'|gumgaTranslate:'businessrule'}}" field="entryvalue"></advanced-search-field>
+                                <advanced-search-field type="string" label="{{'parcelscount'|gumgaTranslate:'businessrule'}}" field="parcelscount"></advanced-search-field>
+                                <advanced-search-field type="string" label="{{'negotiationinterval'|gumgaTranslate:'businessrule'}}" field="negotiationinterval"></advanced-search-field>
+                            </gumga-query>
+
+                        </div>
+                        <div class="col-md-12 m-t">
+                            <div class="table table-responsive">
+                                <gumga-list data="businessrule.data"
+                                            configuration="conf"
+                                            class="table-bordered"></gumga-list>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <ul uib-pagination ng-model="businessrule.page"
+                                        items-per-page="businessrule.pageSize"
+                                        total-items="businessrule.count"
+                                        ng-change="businessrule.methods.get(businessrule.page)"
+                                        previous-text="<< Anterior"
+                                        next-Text="Próximo >>"
+                                        first-text="«"
+                                        last-text="»">
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

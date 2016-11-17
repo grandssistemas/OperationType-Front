@@ -1,1 +1,0 @@
-angular.module('app.paymentform.controllers', ['app.paymentform.services', 'ui.router']);
