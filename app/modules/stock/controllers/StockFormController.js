@@ -47,6 +47,7 @@ angular.module('app.stock.controllers')
                 aux.editable = data.stockType === 'OPERATIONTYPE';
                 data.childrens = data.childrens || [];
                 aux.childrens = data.childrens.map(translateEntity);
+                aux.integrationId = data.integrationId;
                 if (aux.stockType === $scope.treePattern[2]) {
                     aux.informative = false;
                 }
