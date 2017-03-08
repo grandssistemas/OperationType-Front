@@ -27,7 +27,8 @@ gulp.task('js', ['templates'], function () {
 
 gulp.task('templates', function () {
     return gulp.src([
-            './app/**/*.html'
+            './app/**/*.html',
+            './base.html'
         ])
         .pipe(ngTemplates('operationtype.templates'))
         .pipe(gulp.dest('.'));

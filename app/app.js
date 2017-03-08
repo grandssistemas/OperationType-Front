@@ -19,13 +19,13 @@ angular.module('operationtype.core', [
                     id: 1
                 },
                 url: '/stock',
-                templateUrl: 'modules/stock/views/base.html'
+                templateUrl: 'base.html'
             })
             .state('businessrule', {
                 data: {
                     id: 1
                 },
                 url: '/businessrule',
-                templateUrl: 'modules/businessrule/views/base.html'
+                templateUrl: 'base.html'
             })
     });
