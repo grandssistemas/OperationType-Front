@@ -44,6 +44,7 @@ angular.module('app.stock.controllers')
                 aux.fixedCharacteristics = data.fixedCharacteristics;
                 aux.operationCategory = data.operationCategory;
                 aux.invoiceObjective = data.invoiceObjective;
+                aux.message = data.message;
                 aux.editable = data.stockType === 'OPERATIONTYPE';
                 data.childrens = data.childrens || [];
                 aux.childrens = data.childrens.map(translateEntity);
@@ -105,6 +106,7 @@ angular.module('app.stock.controllers')
                     name: '',
                     invoiceObjective: '',
                     operationCategory: '',
+                    message: '',
                     fixedCharacteristics: {
                         allowFreight: true,
                         allowStockMovement: true,
