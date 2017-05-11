@@ -1,5 +1,5 @@
 <div class="gumga-layout">
-    <header class="gl-header"  ng-controller="MenuController">
+    <header class="gl-header" ng-controller="MenuController">
         <div class="searchbar">
             <div class="icon back">
                 <button type="button" data-ng-click="toggleSearch()">
@@ -22,7 +22,7 @@
                         <i class="material-icons">menu</i>
                     </a>
                     <a class="navbar-brand" data-ng-click="navCollapse()">
-                        {{softwareName}}
+                        <img height="30" width="110" src="resources/images/mobi_logo_pq.png" alt=""> <!-- Vir da configuração -->
                     </a>
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                         <i class="material-icons">more_vert</i>
@@ -32,14 +32,65 @@
                     </button>
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav organizations" title="Trocar de Organização">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">domain</i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control gmd" data-ng-model="org_search" placeholder="Pesquisar...">
+                                        <div class="bar"></div>
+                                    </div>
+                                </li>
+                                <li data-ng-repeat="org in organizations | filter: org_search">
+                                    <a href="" ng-click="changeOrganization(org)" >{{org.name}}
+                                        <span class="glyphicon glyphicon-ok" ng-show="org.name == user.organization || org.name == user.name"></span>
+                                    </a>
+                                </li>
+                                <li role="separator" class="divider"></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <form class="navbar-form navbar-left search hidden-sm hidden-xs">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">
+                                  <i class="material-icons">search</i>
+                                </span>
+                                <input type="text" class="form-control" placeholder="Pesquisar...">
+                            </div>
+                        </div>
+                    </form>
+
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                {{user.name}} <span class="caret"></span>
+                                {{user.name}}<span class="caret"></span>
                             </a>
-                            <ul class="dropdown-menu">
-                                <li><a ui-sref="login.log">Sair</a></li>
-                            </ul>
+                            <div class="dropdown-menu ">
+                                <div class="row dropdown-account">
+                                    <div class="col-xs-4">
+                                        <img ng-src="{{user.profileImage}}" alt="">
+                                    </div>
+                                    <div class="user-info">
+                                        <b>{{user.name}}</b>
+                                        <span>{{user.login}}</span>
+                                    </div>
+                                </div>
+                                <hr style="margin-bottom: 10px;">
+                                <div class="row">
+                                    <div class="col-xs-12 dropdown-account-footer" style="padding:0 25px 10px 25px;">
+                                        <button ui-sref="user.profile" class="btn btn-primary raised gmd">Minha conta</button>
+                                        <div class="pull-right">
+                                            <button type="button" ui-sref="login.log" class="btn btn-default gmd " name="button">Sair</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -55,14 +106,17 @@
                 <i class="material-icons">menu</i>
             </a>
             <a class="navbar-brand" data-ng-click="navCollapse()">
-                {{softwareName}}
+                <img height="30" width="110" src="resources/images/mobi_logo_pq.png" alt="" > <!-- Vir da configuração -->
             </a>
         </div>
         <header>
-            <figure>
-                <img src="resources/images/gumga.png">
+            <figure style="padding: 25% 3% 3% 3%;">
+                <img style="max-height: 200px" ng-src="{{companyLogo}}" alt="">
             </figure>
         </header>
-        <gl-menu menu="menu" keys="keys"></gl-menu>
+        <div id="inputSearch">
+            <input type="search" ng-model="menuSearch" class="form-control gmd"/>
+        </div>
+        <gl-menu menu="menu" keys="keys" search="menuSearch"></gl-menu>
     </nav>
 </div>
