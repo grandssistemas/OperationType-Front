@@ -132,11 +132,11 @@
                     </div><br>
                     <div class="row container-fluid">
                         <div class="pull-right">
-                            <button type="button" class="btn btn-primary pull-right" ng-click="addRules(entity)"
+                            <button type="button" class="btn btn-primary pull-right button-add" ng-click="addRules(entity)"
                                     ng-disabled="blockBtnAdd()" ng-hide="entity.id"><span><span
                                     class="fa fa-plus"></span> </span><span
                                     gumga-translate-tag="businessrule.add" class="ng-scope">Add</span></button>
-                            <button type="button" class="btn btn-primary pull-right" ng-show="entity.id" ng-click="saveOnEdit(entity)" ng-disabled="!entity.entryValue || !entity.parcelsCount"><span><span
+                            <button type="button" class="btn btn-primary pull-right button-ok" ng-show="entity.id" ng-click="saveOnEdit(entity)" ng-disabled="!entity.entryValue || !entity.parcelsCount"><span><span
                                     class="fa fa-check"></span> </span><span
                                     gumga-translate-tag="button.save" class="ng-scope">Save</span></button>
                         </div>

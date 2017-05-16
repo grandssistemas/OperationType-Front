@@ -159,7 +159,7 @@ angular.module('app.businessrule.controllers')
                         name: 'button',
                         title: ' ',
                         size: 'col-md-1',
-                        content: '<button type="button" class="btn btn-danger btn-xs pull-right" ng-click="$parent.$parent.removeRule($index)"><span class="glyphicon glyphicon-remove"></span></button>'
+                        content: '<button type="button" class="btn btn-danger btn-xs pull-right button-delete" ng-click="$parent.$parent.removeRule($index)"><span class="glyphicon glyphicon-remove"></span></button>'
                     }
                 ]
             };
