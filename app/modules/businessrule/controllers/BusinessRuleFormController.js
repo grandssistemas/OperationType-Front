@@ -313,7 +313,7 @@ angular.module('app.businessrule.controllers')
 
             $scope.changeStartDate = function (value) {
                 if ((value && $scope.entity.endDuraction && value > $scope.entity.endDuraction) || !value) {
-                    $scope.$broadcast('clearenddate');
+                    $scope.entity.endDuraction = "";
                 }
             };
 
@@ -323,15 +323,22 @@ angular.module('app.businessrule.controllers')
                     startDate = new Date(startDate);
                 }
                 if ((startDate && value && startDate > value) || !startDate) {
-                    $scope.$broadcast('clearenddate');
+                    $scope.entity.endDuraction = "";
                 }
             };
 
-            //datepicker
-            $scope.open = function ($event) {
-                $event.preventDefault();
-                $event.stopPropagation();
-                $scope.opened = true;
+            $scope.configStartDate = {
+                change: function (data) {
+                    $scope.changeStartDate(data);
+                }
             };
+
+            $scope.configEndDate = {
+                change: function (data) {
+                    data = new Date(data);
+                    $scope.changeEndDate(data);
+                }
+            };
+
         }
     ]);

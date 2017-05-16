@@ -33,31 +33,13 @@
                                    ng-disabled="!entity.operatorType || entity.operatorType == ' ' || entity.id"/>
                         </div>
                         <div class="col-md-2 ">
-                            <grands-atributo-data id="startdate" model="entity.startDuraction"
-                            change="changeStartDate(value)"></grands-atributo-data>
-
-                            <!--<div class="input-group date">-->
-                                <!--<input type="datetime" class="form-control" id="startDuraction"-->
-                                       <!--date-time ng-model="entity.startDuraction" view="date" min-view="date"-->
-                                       <!--format="dd/MM/yyyy" ng-blur="checkDate('startDuraction')"-->
-                                       <!--auto-close="true" ng-disabled="entity.id">-->
-                                <!--<span class="input-group-addon"><i class="fa fa-calendar"></i></span>-->
-                            <!--</div>-->
+                            <gumga-date ng-model="entity.startDuraction" id="startdate" name="startdate" configuration="configStartDate"></gumga-date>
                         </div>
                         <div class="col-md-1">
                             <label gumga-translate-tag="businessrule.until" class="custom-span text-muted">Until</label>
                         </div>
                         <div class="col-md-2">
-                            <grands-atributo-data id="enddate" model="entity.endDuraction"
-                                                  change="changeEndDate(value)"></grands-atributo-data>
-
-                            <!--<div class="input-group date">-->
-                                <!--<input type="datetime" class="form-control"-->
-                                       <!--date-time ng-model="entity.endDuraction" view="date" min-view="date"-->
-                                       <!--format="dd/MM/yyyy" ng-blur="checkDate('endDuraction')" id="endDuraction"-->
-                                       <!--auto-close="true">-->
-                                <!--<span class="input-group-addon"><i class="fa fa-calendar"></i></span>-->
-                            <!--</div>-->
+                            <gumga-date ng-model="entity.endDuraction" id="enddate" name="enddate" configuration="configEndDate"></gumga-date>
                         </div>
                         <div class="col-md-3">
                             <button type="button"
