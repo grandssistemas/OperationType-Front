@@ -6,12 +6,12 @@ angular.module('app.businessrule.services')
         service.update = function (entity) {
             var identifier = entity.identifier;
             delete entity.identifier;
-            if (entity.id) {
-                return $http.put(this._url, entity).then(function (data) {
-                    data.identifier = identifier;
-                    return data;
-                });
-            }
+            // if (entity.id) {
+            //     return $http.post(this._url, entity).then(function (data) {
+            //         data.identifier = identifier;
+            //         return data;
+            //     });
+            // }
             return service.save(entity).then(function (data) {
                 data.identifier = identifier;
                 return data;
@@ -29,6 +29,10 @@ angular.module('app.businessrule.services')
 
         service.getValueType = function () {
             return service.extend('get', '/valueType');
+        };
+
+        service.changeStatus = function (id) {
+            return service.extend('get', '/changestatus/'.concat(id));
         };
 
         return service;

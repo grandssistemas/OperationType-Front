@@ -2,9 +2,12 @@ angular.module('app.businessrule.controllers')
     .controller('BusinessRuleListController', [
         '$scope',
         'gumgaController',
-        'BusinessRuleService', function ($scope,
-                                         gumgaController,
-                                         BusinessRuleService) {
+        'BusinessRuleService',
+        '$rootScope',
+        function ($scope,
+                  gumgaController,
+                  BusinessRuleService,
+                  $rootScope) {
             gumgaController.createRestMethods($scope, BusinessRuleService, 'businessrule');
             $scope.businessrule.execute('reset');
             $scope.businessrule.execute('get');
@@ -14,8 +17,8 @@ angular.module('app.businessrule.controllers')
             });
 
             $scope.conf = {
-                columns: 'valueRestriction,entryValue,discount,parcelsCount,start,end,button',
-                selection: 'single',
+                columns: 'valueRestriction,entryValue,discount,parcelsCount,start,end,status,button',
+                selection: 'none',
                 checkbox: false,
                 columnsConfig: [
                     {
@@ -67,12 +70,31 @@ angular.module('app.businessrule.controllers')
                         content: '{{$value.endDuraction | date:\'dd/MM/yyyy\'}}'
                     },
                     {
+                        name: 'status',
+                        size: 'col-md-1',
+                        title: '<div align="center"><strong gumga-translate-tag="businessrule.status">status</strong></div>',
+                        content: '<div align="center">' +
+                        '<span class="badge badge-primary" ng-show="$value.active"  gumga-translate-tag="businessrule.active">Ativo</span>' +
+                        '<span class="badge badge-danger"  ng-show="!$value.active" gumga-translate-tag="businessrule.inative" >Inativo</span> ' +
+                        '</div>'
+                    },
+                    {
                         name: 'button',
                         title: ' ',
                         size: 'col-md-1',
-                        content: '<div align="center"><button type="button" ui-sref="businessrule.edit({id: $value.id})" grands-button="edit-sm" uib-tooltip=""></button></div>'
+                        content: '<div align="center">' +
+                        '<button ng-show="$value.active" type="button" ng-click="$parent.$parent.changeStatus($value)" class="btn-link center-block text-danger" uib-tooltip="Desativar"><i class="fa fa-times"></i></button>' +
+                        '<button ng-show="!$value.active" type="button" ng-click="$parent.$parent.changeStatus($value)" class="btn-link center-block text-success" uib-tooltip="Ativar"><i class="fa fa-check"></i></button>' +
+                        '</div>'
                     }
                 ]
+            };
+
+            $scope.changeStatus = function (entity) {
+                $rootScope.$broadcast('hideNextMessage', true);
+                BusinessRuleService.changeStatus(entity.id).then(function (response) {
+                    $scope.businessrule.execute('get');
+                });
             };
 
             function update(values) {

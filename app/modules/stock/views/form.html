@@ -46,35 +46,15 @@
                             </div>
                             <div ng-if="typeAux == treePattern[2]">
                                 <div class="row">
-                                    <div class="col-md-4 m-t">
-                                        <grands-check model="objAux.fixedCharacteristics.allowFreight"
-                                                      label="stock.allowFreight"></grands-check>
-                                    </div>
-                                    <div class="col-md-4 m-t">
-                                        <grands-check model="objAux.fixedCharacteristics.allowStockMovement"
-                                                      label="stock.allowStockMovement"></grands-check>
-                                    </div>
-                                    <div class="col-md-4 m-t">
-                                        <grands-check model="objAux.fixedCharacteristics.allowCashMovement"
-                                                      label="stock.allowCashMovement"></grands-check>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4 m-t">
-                                        <grands-check model="objAux.fixedCharacteristics.allowNFe"
-                                                      label="stock.allowNfe"></grands-check>
-                                    </div>
-                                    <div class="col-md-4 m-t">
-                                        <grands-check model="objAux.fixedCharacteristics.allowNFCe"
-                                                      label="stock.allowNFce"></grands-check>
-                                    </div>
-                                    <div class="col-md-4 m-t">
-                                        <grands-check model="objAux.fixedCharacteristics.quickSale"
-                                                      label="stock.quickSale"></grands-check>
+                                    <div class="col-md-12 m-t">
+                                        <label for="descrition" gumga-translate-tag="stock.message">Message</label>
+                                        <textarea id="message" name="message" class="form-control" ng-model="objAux.message"
+                                                  style="resize: none; height: 100px;" maxlength="5000"
+                                                  gumga-counter="5000"></textarea>
                                     </div>
                                 </div>
                             </div>
-                            <button class="btn btn-primary pull-right m-t" ng-click="objAux = addNew(objAux,typeAux)"
+                            <button class="btn btn-primary pull-right m-t button-add" ng-click="objAux = addNew(objAux,typeAux)"
                                     ng-disabled="typeAux == '' || objAux.name == null || objAux.name == ''"><span class="fa fa-plus"></span> <span
                                     gumga-translate-tag="stock.add">add</span>
                             </button>
