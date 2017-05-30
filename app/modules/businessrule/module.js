@@ -7,34 +7,31 @@ angular.module('app.businessrule', ['ui.router', 'app.businessrule.controllers',
                 controller: 'BusinessRuleListController',
                 data: {id: 2}
             })
-            .state('businessrule.insert', {
-                url: '/insert',
-                templateUrl: 'modules/businessrule/views/form.html',
-                controller: 'BusinessRuleFormController',
-                data: {id: 3}, resolve: {
-                    entity: ['$stateParams', '$http', function ($stateParams, $http) {
-                        var url = apiLocation + '/api/businessrule/new'
-                        return $http.get(url);
-                    }]
-                    , operationTypes: ['OperationTypeService', function (OperationTypeService) {
+            .state('businessrule.stepone', {
+                url: '/insert/stepone',
+                templateUrl: 'modules/businessrule/views/BusinessRuleStepOne.html',
+                controller: 'BusinessRuleStepOneController',
+                data: {id: 3},
+                resolve: {
+                    operations: ['OperationTypeService', function (OperationTypeService) {
                         return OperationTypeService.allWithTenancy().then(function (data) {
                             return data.data;
                         })
                     }]
                 }
             })
-            .state('businessrule.edit', {
-                url: '/edit/:id',
-                templateUrl: 'modules/businessrule/views/form.html',
-                controller: 'BusinessRuleFormController',
-                data: {id: 3}, resolve: {
-                    entity: ['$stateParams', '$http', function ($stateParams, $http) {
-                        var url = apiLocation + '/api/businessrule/' + $stateParams.id;
-                        return $http.get(url);
-                    }],
-                    operationTypes: function () {
-                        return [];
-                    }
+            .state('businessrule.steptwo', {
+                url: '/insert/steptwo',
+                templateUrl: 'modules/businessrule/views/BusinessRuleStepTwo.html',
+                controller: 'BusinessRuleStepTwoController',
+                data: {id: 3},
+                params: {
+                  operations: null
+                },
+                resolve: {
+                    operations: ['$stateParams', function ($stateParams) {
+                        return $stateParams.operations || []
+                    }]
                 }
-            });
+            })
     }]);
