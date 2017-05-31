@@ -18,6 +18,7 @@ angular.module('app.businessrule.controllers')
                 fixed: {
                   head: true
                 },
+                activeLineColor: 'var(--primary)',
                 title: 'Operações',
                 columnsConfig: [
                     {

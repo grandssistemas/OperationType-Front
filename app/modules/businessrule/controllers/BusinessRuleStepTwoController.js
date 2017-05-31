@@ -60,6 +60,7 @@ angular.module('app.businessrule.controllers')
                 selection: 'multi',
                 checkbox: true,
                 materialTheme: true,
+                activeLineColor: 'var(--primary)',
                 fixed: {
                     head: true
                 },
