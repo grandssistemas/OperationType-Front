@@ -34,7 +34,6 @@ angular.module('app.businessrule.controllers')
             }
 
             $scope.nextStep = function () {
-                console.log($scope.selectedOperations)
                 $state.go('businessrule.steptwo', {operations: $scope.selectedOperations});
             }
 

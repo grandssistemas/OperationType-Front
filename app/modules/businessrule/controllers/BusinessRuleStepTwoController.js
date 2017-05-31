@@ -5,14 +5,20 @@ angular.module('app.businessrule.controllers')
         'operations',
         'SweetAlert',
         'PaymentTypeService',
+        'BusinessRuleService',
         function ($scope,
                   $state,
                   operations,
                   SweetAlert,
-                  PaymentTypeService) {
+                  PaymentTypeService,
+                  BusinessRuleService) {
 
 
             $scope.operations = angular.copy(operations)
+
+            BusinessRuleService.getNew().then(function(response){
+                $scope.new = response.data;
+            })
 
             if (!$scope.operations || !$scope.operations.length) {
                 SweetAlert.swal({
@@ -36,12 +42,17 @@ angular.module('app.businessrule.controllers')
                     payment.parcelsCount = 1;
                     return payment;
                 });
-                console.log($scope.paymentTypes);;
             });
 
             $scope.changeMethod = function(newMethod){
                 $scope.entry = newMethod ==='ENTRY';
                 $scope.parcel = !$scope.entry;
+                $scope.selectedEntryType = [];
+                $scope.selectedParcelType = [];
+                $scope.paymentTypes = angular.copy($scope.paymentTypes).map(function(payment){
+                    payment.parcelsCount = 1;
+                    return payment;
+                });
             };
 
             $scope.confBase = {
@@ -75,17 +86,53 @@ angular.module('app.businessrule.controllers')
             $scope.confParcel = angular.copy($scope.confBase);
             $scope.confEntry.columns = 'name';
 
-
-            $scope.onChangeRow = function(row){
-                console.log(row);
-            }
-
             $scope.back = function(){
                 $state.go('businessrule.stepone');
             }
 
             $scope.generate = function(){
                 var selected = $scope.entry ? $scope.selectedEntryType : $scope.selectedParcelType;
+                var generated = [];
+                var singleParcel = [];
+                var manyParcels = [];
+
+                selected.forEach(function(payment){
+                    if (payment.parcelsCount > 0){
+                        
+                    }
+                });
+
+
+
+                selected.forEach(function(current){
+                    for(var count = 1; count <= current.parcelsCount; count ++){
+                        var br = angular.copy($scope.new);
+                        br.maxDiscount = 100;
+                        br.discountType = 'PERCENTAGE';
+                        br.hasEntry = $scope.entry;
+                        br.minValue = 0;
+                        br.startDuration = (new Date());
+                        br.active = $scope.active;
+                        br.negotiationInterval = 0;
+                        if (br.hasEntry){
+                            br.entryValue = 1;
+                            br.entryType = 'PERCENTAGE'
+                            br.entryPaymentTypes = selected;
+                            br.parcelsCount = 0;
+                        } else {
+                            br.parcelsCount = count;
+                            br.parcelsPaymentTypes = selected;
+                            br.monthly = true;
+                        }
+                        generated.push(br);
+                    }
+
+
+                })
+                BusinessRuleService.saveWithOperationType($scope.operations, generated).then(function(response){
+                    console.log(response.data)
+                });
+
 
 
             }
