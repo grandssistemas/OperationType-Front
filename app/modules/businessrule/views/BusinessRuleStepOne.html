@@ -1,0 +1,31 @@
+<div>
+    <div class="panel gmd">
+        <div class="panel-heading">
+            Regra Comercial
+        </div>
+        <div class="panel-body text-center">
+            <p class="bold">Selecione os tipos de movimentações que farão parte desta Regra Comercial.</p>
+            <p class="bold text-danger" ng-class="{'invisible': selectedOperations.length}" >Pelo menos uma operação deve ser selecionada.</p>
+
+            <div class="col-sm-4 col-sm-offset-4">
+                <gumga-list data="operations"
+                            configuration="conf"
+                            class="gmd"
+                            selected-values="selectedOperations"
+                            page-size="businessrule.pageSize"
+                            count="businessrule.count"
+                            page-model="businessrule.page"
+                            max-height="450px">
+                </gumga-list>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <button type="button" class="btn btn-primary button-ok" ng-click="nextStep()"
+                    ng-disabled="!selectedOperations.length">
+                Próximo
+            </button>
+            <button type="button" grands-button="cancel" class="pull-left" ng-click="back()">
+            </button>
+        </div>
+    </div>
+</div>

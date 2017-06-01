@@ -17,7 +17,7 @@ angular.module('app.businessrule.controllers')
             });
 
             $scope.conf = {
-                columns: 'valueRestriction,entryValue,discount,parcelsCount,start,end,status,button',
+                columns: 'parcelsCount,status,button',
                 selection: 'none',
                 checkbox: false,
                 materialTheme: true,

@@ -1,0 +1,78 @@
+<div class="panel gmd">
+    <div class="panel-body">
+
+        <div class="row">
+            <div class="col-md-4 col-md-offset-2">
+                <p class="text-center text-primary"> Operações selecionadas</p>
+                <select multiple chosen
+                        data-placeholder="Tipo de movimento..."
+                        ng-model="operations"
+                        ng-options="op as op.name for op in operations" disabled>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <div class="col-md-4 m-t-lg text-center">
+                    <grands-check-button value="active" label="{{active ? 'Ativo' : 'Inativo'}}"
+                                         click="active = !active">
+                    </grands-check-button>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row m-t-lg">
+
+            <div class="col-md-4 col-md-offset-2">
+                <grands-big-active-button id="paymentInCred" click="changeMethod('ENTRY')" active="entry"
+                                          class="btn-success">
+                    <i class="material-icons cl-text-icons cursor-pointer" style="font-size: 30px;vertical-align: sub">monetization_on</i>
+                    <label class="cl-text-icons cursor-pointer"
+                           style="padding-top: 5%;padding-bottom: 5%;font-size: 30px;padding-left: 4%;">À Vista</label>
+                </grands-big-active-button>
+            </div>
+            <div class="col-md-4">
+                <grands-big-active-button id="paymentInCred" click="changeMethod('PARCEL')" active="parcel"
+                                          class="btn-success">
+                    <i class="material-icons cl-text-icons cursor-pointer" style="font-size: 30px;vertical-align: sub">payment</i>
+                    <label class="cl-text-icons cursor-pointer"
+                           style="padding-top: 5%;padding-bottom: 5%;font-size: 30px;padding-left: 4%;"
+                    >À Prazo</label>
+                </grands-big-active-button>
+            </div>
+        </div>
+
+
+        <div class="panel gmd m-t-md" ng-show="entry">
+
+            <div class="col-md-4 col-md-offset-4">
+                <gumga-list data="paymentTypes"
+                            configuration="confEntry"
+                            class="gmd"
+                            selected-values="selectedEntryType"
+                            max-height="450px">
+                </gumga-list>
+            </div>
+        </div>
+
+        <div class="panel gmd m-t-md" ng-show="parcel">
+            <div class="col-md-4 col-md-offset-4">
+                <gumga-list data="paymentTypes"
+                            configuration="confParcel"
+                            class="gmd"
+                            selected-values="selectedParcelType"
+                            on-row-change="onChangeRow(row)"
+                            max-height="450px">
+                </gumga-list>
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <button type="button" class="btn btn-primary button-ok" ng-click="generate()"
+                ng-disabled="disableBtnSave()">
+            <i class="material-icons media-bottom">save</i>
+            <span>Salvar</span>
+        </button>
+        <button type="button" grands-button="cancel" class="pull-left" ng-click="back()">
+        </button>
+    </div>
+</div>
