@@ -17,9 +17,12 @@ angular.module('app.businessrule.controllers')
             });
 
             $scope.conf = {
-                columns: 'valueRestriction,entryValue,discount,parcelsCount,start,end,status,button',
+                columns: 'parcelsCount,status,button',
                 selection: 'none',
                 checkbox: false,
+                materialTheme: true,
+                itemsPerPage: [5, 10, 25, 50, 100],
+                title:'Listagem de Regras comerciais',
                 columnsConfig: [
                     {
                         name: 'discount',
