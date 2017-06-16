@@ -44,6 +44,19 @@ angular.module('app.businessrule.controllers')
                 });
             });
 
+            $scope.onChangeRow = function (value) {
+                $scope.paymentTypes.forEach(function (payment) {
+                    if(payment.id == value.id){
+                        payment.parcelsCount = value.parcelsCount;
+                    }
+                })
+                $scope.selectedParcelType.forEach(function (payment) {
+                    if(payment.id == value.id){
+                        payment.parcelsCount = value.parcelsCount;
+                    }
+                })
+            }
+
             $scope.changeMethod = function(newMethod){
                 $scope.entry = newMethod ==='ENTRY';
                 $scope.parcel = !$scope.entry;
@@ -60,11 +73,10 @@ angular.module('app.businessrule.controllers')
                 selection: 'multi',
                 checkbox: true,
                 materialTheme: true,
-                activeLineColor: 'var(--primary)',
+                // activeLineColor: 'var(--primary)',
                 fixed: {
                     head: true
                 },
-                title: 'Operações',
                 columnsConfig: [
                     {
                         name: 'name',

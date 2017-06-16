@@ -1,31 +1,78 @@
-<div>
-    <div class="panel gmd">
-        <div class="panel-heading">
-            Regra Comercial
-        </div>
-        <div class="panel-body text-center">
-            <p class="bold">Selecione os tipos de movimentações que farão parte desta Regra Comercial.</p>
-            <p class="bold text-danger" ng-class="{'invisible': selectedOperations.length}" >Pelo menos uma operação deve ser selecionada.</p>
+<form name="forms" novalidate autocomplete="off" class="has-footer">
+    <div class="row">
+        <div class="col-xs-10 col-xs-offset-1 col-md-10 col-md-offset-1" style="margin-top: 15px;">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1 style="font-size: 18px;">
+                        Regra Comercial
+                        <span class="businesrule-step">2</span>
+                        <span class="businesrule-step businesrule-step-active">1</span>
+                    </h1>
+                    <div class="panel gmd">
+                        <div class="panel-heading" style="padding-bottom: 0;">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <span>Operações <br>
+                                        <label style="font-size: 12px; color: var(--primary);    font-size: 12px;
+                                            color: var(--primary);
+                                            vertical-align: middle;
+                                            padding-top: 5px;">Selecione os tipos de movimentações desta Regra Comercial: </label></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body text-center">
+                            <div class="col-sm-6" style="padding-left: 0;">
+                                <gumga-list data="operations"
+                                            configuration="conf"
+                                            on-click="onSelectedOperation($value)"
+                                            name="operations"
+                                            class="gmd"
+                                            page-size="businessrule.pageSize"
+                                            count="businessrule.count"
+                                            page-model="businessrule.page"
+                                            max-height="350px">
+                                </gumga-list>
+                            </div>
 
-            <div class="col-sm-4 col-sm-offset-4">
-                <gumga-list data="operations"
-                            configuration="conf"
-                            class="gmd"
-                            selected-values="selectedOperations"
-                            page-size="businessrule.pageSize"
-                            count="businessrule.count"
-                            page-model="businessrule.page"
-                            max-height="450px">
-                </gumga-list>
+                            <div class="col-sm-6">
+                                <div ng-show="selectedOperations.length == 0">
+                                    <br><br><br>
+                                    <i class="material-icons" style="font-size: 12em;color: var(--primary);">compare_arrows</i>
+                                    <h5>Nenhum tipo de movimentação foi selecionado ainda.</h5>
+                                </div>
+
+                                <div ng-show="selectedOperations.length > 0">
+                                    <div>
+                                        <i class="material-icons" style="font-size: 50px;color: var(--primary);">compare_arrows</i>
+                                    </div>
+                                   <div>
+                                       <label style="font-size: 24px;color: #5d5757;">Movimentações selecionadas: </label>
+                                       <br>
+                                       <br>
+                                   </div>
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <p ng-repeat="op in selectedOperations" class="operation-item" style="padding: 5px;padding-right: 10px;   padding-left: 10px;">
+                                                {{op.name}}
+                                                <i class="material-icons" ng-click="removeOperation(op)">delete</i>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="panel-footer">
+                            <button type="button" class="btn btn-primary button-ok" ng-click="nextStep()"
+                                    ng-disabled="!selectedOperations.length">
+                                Próximo
+                            </button>
+                            <button type="button" grands-button="cancel" class="pull-left" ng-click="back()">
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="panel-footer">
-            <button type="button" class="btn btn-primary button-ok" ng-click="nextStep()"
-                    ng-disabled="!selectedOperations.length">
-                Próximo
-            </button>
-            <button type="button" grands-button="cancel" class="pull-left" ng-click="back()">
-            </button>
-        </div>
     </div>
-</div>
+</form>

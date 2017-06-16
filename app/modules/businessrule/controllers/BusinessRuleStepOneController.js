@@ -9,17 +9,35 @@ angular.module('app.businessrule.controllers')
 
             $scope.operations = angular.copy(operations);
 
+            $scope.selectedOperations = [];
+
+            $scope.onSelectedOperation = function (value) {
+                $scope.operations.forEach(function (p1, index) {
+                    if(value.id == p1.id){
+                        $scope.operations.splice(index, 1);
+                    }
+                });
+                $scope.selectedOperations.push(value);
+            }
+
+            $scope.removeOperation = function (value) {
+                $scope.selectedOperations.forEach(function (p1, index) {
+                    if(value.id == p1.id){
+                        $scope.selectedOperations.splice(index, 1);
+                    }
+                });
+                $scope.operations.unshift(value);
+            }
 
             $scope.conf = {
                 columns: 'name',
                 selection: 'multi',
-                checkbox: true,
+                checkbox: false,
                 materialTheme: true,
                 fixed: {
                   head: true
                 },
-                activeLineColor: 'var(--primary)',
-                title: 'Operações',
+                // activeLineColor: 'var(--primary)',
                 columnsConfig: [
                     {
                         name: 'name',
