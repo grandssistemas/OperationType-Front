@@ -45,6 +45,7 @@ angular.module('app.stock.controllers')
                 aux.operationCategory = data.operationCategory;
                 aux.invoiceObjective = data.invoiceObjective;
                 aux.message = data.message;
+                aux.type = data.type;
                 aux.editable = data.stockType === 'OPERATIONTYPE';
                 data.childrens = data.childrens || [];
                 aux.childrens = data.childrens.map(translateEntity);
