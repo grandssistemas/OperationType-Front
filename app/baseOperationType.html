@@ -59,7 +59,7 @@
                                 <span class="input-group-addon" id="basic-addon1">
                                   <i class="material-icons">search</i>
                                 </span>
-                                <input type="text" ng-model="asyncSelected" placeholder="Pesquisar..."
+                                <input type="text" ng-model="asyncSelected" placeholder="O que deseja Fazer..." id="searchBase"
                                        uib-typeahead="item.searchLabel for item in searchMenu($viewValue) | limitTo:10" class="form-control"
                                        typeahead-on-select="goToState($item)">
                             </div>
