@@ -19,6 +19,10 @@ angular.module('app.stock.services')
             return service.extend('get', '/getallwithtenancy');
         };
 
+        service.allByOperation = function (type) {
+            return service.extend('get', '/getallbyoperation/' + type);
+        };
+
         service.recoveryAllByCategory = function (name) {
             return service.extend('get', '/recoveryallbycategory?category=' + name);
         };
