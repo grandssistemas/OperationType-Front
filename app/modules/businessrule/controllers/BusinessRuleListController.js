@@ -21,6 +21,8 @@ angular.module('app.businessrule.controllers')
                 selection: 'none',
                 checkbox: false,
                 materialTheme: true,
+                activeLineColor: '#cccccc',
+                hoverLineColor: '#f5f5f5',
                 itemsPerPage: [5, 10, 25, 50, 100],
                 title:'Listagem de Regras comerciais',
                 columnsConfig: [
