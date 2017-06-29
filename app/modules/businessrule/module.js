@@ -14,7 +14,7 @@ angular.module('app.businessrule', ['ui.router', 'app.businessrule.controllers',
                 data: {id: 3},
                 resolve: {
                     operations: ['OperationTypeService', function (OperationTypeService) {
-                        return OperationTypeService.allWithTenancy().then(function (data) {
+                        return OperationTypeService.allByOperation('EXIT').then(function (data) {
                             return data.data;
                         })
                     }]

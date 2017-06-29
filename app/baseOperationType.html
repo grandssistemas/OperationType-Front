@@ -53,13 +53,13 @@
                             </ul>
                         </li>
                     </ul>
-                    <form class="navbar-form navbar-left search hidden-sm hidden-xs">
+                    <form class="navbar-form navbar-left search hidden-sm hidden-xs" autocomplete="off">
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon" id="basic-addon1">
                                   <i class="material-icons">search</i>
                                 </span>
-                                <input type="text" ng-model="asyncSelected" placeholder="Pesquisar..."
+                                <input type="text" ng-model="asyncSelected" placeholder="O que deseja Fazer..." id="searchBase"
                                        uib-typeahead="item.searchLabel for item in searchMenu($viewValue) | limitTo:10" class="form-control"
                                        typeahead-on-select="goToState($item)">
                             </div>
