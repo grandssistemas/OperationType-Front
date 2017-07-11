@@ -5,34 +5,21 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="col-md-5">
-                            <button type="button" ui-sref="businessrule.stepone" grands-button="new"></button>
-                        </div>
-                        <div class="col-md-7">
-                            <gumga-query search="businessrule.methods.search(field, param)" advanced-search="businessrule.methods.advancedSearch(param)">
-                                <search-field field="name" label="{{'name'|gumgaTranslate:'businessrule'}}" select="true"></search-field>
-                                <search-field field="maximumdiscount" label="{{'maximumdiscount'|gumgaTranslate:'businessrule'}}"></search-field>
-                                <search-field field="entryvalue" label="{{'entryvalue'|gumgaTranslate:'businessrule'}}"></search-field>
-                                <search-field field="parcelscount" label="{{'parcelscount'|gumgaTranslate:'businessrule'}}"></search-field>
-                                <search-field field="negotiationinterval" label="{{'negotiationinterval'|gumgaTranslate:'businessrule'}}"></search-field>
-                                <advanced-search-field type="string" label="{{'maximumdiscount'|gumgaTranslate:'businessrule'}}" field="maximumdiscount"></advanced-search-field>
-                                <advanced-search-field type="string" label="{{'entryvalue'|gumgaTranslate:'businessrule'}}" field="entryvalue"></advanced-search-field>
-                                <advanced-search-field type="string" label="{{'parcelscount'|gumgaTranslate:'businessrule'}}" field="parcelscount"></advanced-search-field>
-                                <advanced-search-field type="string" label="{{'negotiationinterval'|gumgaTranslate:'businessrule'}}" field="negotiationinterval"></advanced-search-field>
-                            </gumga-query>
-
+                            <button type="button" class="btn gmd fab fixed btn-primary gmd-ripple" ui-sref="businessrule.stepone" >
+                                <i class="material-icons">add</i>
+                            </button>
                         </div>
                         <div class="col-md-12 m-t">
-                            <!--<div class="table table-responsive">-->
-                                <gumga-list data="businessrule.data"
-                                            configuration="conf"
-                                            class="table-striped gmd"
-                                            sort="businessrule.methods.sort(field, dir)"
-                                            page-size="businessrule.pageSize"
-                                            count="businessrule.count"
-                                            page-model="businessrule.page"
-                                            max-height="400px"
-                                            on-page-change="businessrule.methods.get(page, pageSize)"></gumga-list>
-                            <!--</div>-->
+                            <gumga-list data="businessrule.data"
+                                        configuration="conf"
+                                        class="table-striped gmd"
+                                        sort="businessrule.methods.sort(field, dir)"
+                                        page-size="businessrule.pageSize"
+                                        count="businessrule.count"
+                                        page-model="businessrule.page"
+                                        max-height="400px"
+                                        on-page-change="businessrule.methods.get(page, pageSize)">
+                            </gumga-list>
                         </div>
                     </div>
                 </div>

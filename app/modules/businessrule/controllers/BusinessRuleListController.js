@@ -4,10 +4,12 @@ angular.module('app.businessrule.controllers')
         'gumgaController',
         'BusinessRuleService',
         '$rootScope',
+        'GrandsLoadingService',
         function ($scope,
                   gumgaController,
                   BusinessRuleService,
-                  $rootScope) {
+                  $rootScope,
+                  GrandsLoadingService) {
             gumgaController.createRestMethods($scope, BusinessRuleService, 'businessrule');
             $scope.businessrule.execute('reset');
             $scope.businessrule.execute('get');
@@ -24,6 +26,26 @@ angular.module('app.businessrule.controllers')
                 activeLineColor: '#cccccc',
                 hoverLineColor: '#f5f5f5',
                 itemsPerPage: [5, 10, 25, 50, 100],
+                actions: [
+                    {
+                        icon: '<button type="button" class="btn gmd raised btn-primary gmd-ripple" style="background-color: #1ab394;">ATIVOS</button>',
+                        onClick: function(){
+                            searchByStatus(true)
+                        }
+                    },
+                    {
+                        icon: '<button type="button" class="btn gmd raised btn-danger gmd-ripple">INATIVOS</button>',
+                        onClick: function(){
+                            searchByStatus(false)
+                        }
+                    },
+                    {
+                        icon: '<button type="button" class="btn gmd raised btn-default gmd-ripple">TODOS</button>',
+                        onClick: function(){
+                            searchByStatus("ALL")
+                        }
+                    }
+                ],
                 title:'Listagem de Regras comerciais',
                 columnsConfig: [
                     {
@@ -94,6 +116,16 @@ angular.module('app.businessrule.controllers')
                     }
                 ]
             };
+
+            function searchByStatus(status) {
+                let param = status === "ALL" ? 'obj.active=true or obj.active=false' : `obj.active=${status}`;
+                GrandsLoadingService.openModal(BusinessRuleService.getAdvancedSearch(param), "Atualizando lista").then( (response)=> {
+                    $scope.businessrule.data = response.data.values;
+                    $scope.businessrule.pageSize = response.data.pageSize;
+                    $scope.businessrule.count = response.data.count;
+                    $scope.businessrule.page = response.data.start;
+                } )
+            }
 
             $scope.changeStatus = function (entity) {
                 $rootScope.$broadcast('hideNextMessage', true);
