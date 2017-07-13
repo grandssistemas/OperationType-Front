@@ -1,11 +1,12 @@
 /**
  * Created by rafael on 08/11/16.
  */
-var gulp = require('gulp');
-var concat = require('gulp-concat');
-var uglify = require('gulp-uglify');
-var ngAnnotate = require('gulp-ng-annotate');
-var ngTemplates = require('gulp-ng-templates');
+const gulp = require('gulp');
+const concat = require('gulp-concat');
+const uglify = require('gulp-uglify');
+const ngAnnotate = require('gulp-ng-annotate');
+const ngTemplates = require('gulp-ng-templates');
+const babel = require('gulp-babel');
 
 gulp.task('js', ['templates'], function () {
     gulp.src([
@@ -19,6 +20,7 @@ gulp.task('js', ['templates'], function () {
             'app/**/*.js',
             'app/app.js'
         ])
+        .pipe(babel({presets: ['es2015']}))
         .pipe(concat('operationtype.min.js'))
         .pipe(ngAnnotate())
         .pipe(uglify())
@@ -37,6 +39,7 @@ gulp.task('js-dev', ['templates'], function () {
             'app/**/*.js',
             'app/app.js'
         ])
+        .pipe(babel({presets: ['es2015']}))
         .pipe(concat('operationtype.min.js'))
         .pipe(ngAnnotate())
         .pipe(gulp.dest('.'))
