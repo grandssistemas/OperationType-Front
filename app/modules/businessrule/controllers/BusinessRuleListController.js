@@ -12,10 +12,10 @@ angular.module('app.businessrule.controllers')
                   GrandsLoadingService) {
             gumgaController.createRestMethods($scope, BusinessRuleService, 'businessrule');
             $scope.businessrule.execute('reset');
-            $scope.businessrule.execute('get');
+            $scope.businessrule.methods.getLatestOperation();
 
-            $scope.businessrule.on('deleteSuccess', function () {
-                $scope.businessrule.execute('get');
+            $scope.businessrule.on('deleteSuccess', () => {
+                $scope.businessrule.methods.getLatestOperation();
             });
 
             $scope.conf = {
@@ -129,8 +129,8 @@ angular.module('app.businessrule.controllers')
 
             $scope.changeStatus = function (entity) {
                 $rootScope.$broadcast('hideNextMessage', true);
-                BusinessRuleService.changeStatus(entity.id).then(function (response) {
-                    $scope.businessrule.execute('get');
+                BusinessRuleService.changeStatus(entity.id).then((response) => {
+                    $scope.businessrule.methods.getLatestOperation();
                 });
             };
 
