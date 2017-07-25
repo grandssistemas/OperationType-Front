@@ -1,15 +1,19 @@
-angular.module('operationtype.core', [
-    'ui.router'
-    , 'ngSanitize'
-    , 'gumga.core'
-    , 'brasil.filters'
-    , 'ui.utils.masks'
-    , 'datePicker'
-    , 'app.stock'
-    , 'app.businessrule'
-    , 'operationtype.templates'
-    , 'paymenttype.core'
-    , 'characteristic.core'
+require('./import-style');
+require('./import-modules');
+
+let baseOperation = require('./baseOperationType.html');
+
+module.exports = angular.module('operationtype.core', [
+    'ui.router',
+    'ngSanitize',
+    'gumga.core',
+    'brasil.filters',
+    'ui.utils.masks',
+    'datePicker',
+    'app.stock',
+    'app.businessrule',
+    'paymenttype.core',
+    'characteristic.core'
     //FIMINJECTIONS
 ])
     .config(function ($stateProvider) {
@@ -19,13 +23,13 @@ angular.module('operationtype.core', [
                     id: 1
                 },
                 url: '/stock',
-                templateUrl: 'baseOperationType.html'
+                templateUrl: baseOperation
             })
             .state('businessrule', {
                 data: {
                     id: 1
                 },
                 url: '/businessrule',
-                templateUrl: 'baseOperationType.html'
+                templateUrl: baseOperation
             })
     });
