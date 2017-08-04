@@ -22,7 +22,7 @@
                         <i class="material-icons">menu</i>
                     </a>
                     <a class="navbar-brand" data-ng-click="navCollapse()">
-                        <img height="30" width="110" src="../resources/images/mobi_logo_pq.png" alt=""> <!-- Vir da configuração -->
+                        <img height="30" width="100" src="../resources/images/mobi_logo_pq.png" alt=""> <!-- Vir da configuração -->
                     </a>
                     <button type="button" style="background-color: transparent;padding-top: 12px !important;" class="btn-round-footer navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                         <i class="material-icons">more_vert</i>
@@ -62,6 +62,13 @@
                             </div>
                         </div>
                     </form>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a target="_self" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons" ng-click="requestFullScreen()">{{fullScreen}}</i>
+                            </a>
+                        </li>
+                    </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
