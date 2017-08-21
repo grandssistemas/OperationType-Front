@@ -1,7 +1,7 @@
 require('./import-style');
 require('./import-modules');
 
-let baseOperation = require('./baseOperationType.html');
+let baseOperation = '/baseGrandsComponents.html';
 
 module.exports = angular.module('operationtype.core', [
     'ui.router',
