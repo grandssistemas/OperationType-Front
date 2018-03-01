@@ -19,6 +19,10 @@ function StockService(GumgaRest, apiLocation, $q) {
         return service.extend('get', '/tree/childrens/'.concat(type).concat('/').concat(id));
     };
 
+    service.getDocumentFinality = function(){
+        return service.extend('get', '/documentfinality');
+    };
+
     return service;
 }
 module.exports = StockService;

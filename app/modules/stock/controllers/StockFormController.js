@@ -2,13 +2,11 @@ StockFormController.$inject = [
     'StockService',
     'entity',
     '$scope',
-    'NotesQueryService',
     'OperationTypeService',
     '$q'];
 function StockFormController(StockService,
                              entity,
                              $scope,
-                             NotesQueryService,
                              OperationTypeService,
                              $q) {
     StockService.resetDefaultState();
@@ -125,7 +123,7 @@ function StockFormController(StockService,
     };
 
 
-    NotesQueryService.getDocumentFinality().then(function (data) {
+    StockService.getDocumentFinality().then(function (data) {
         $scope.documentFinalityList = data.data;
     });
 
