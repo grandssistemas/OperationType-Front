@@ -82,9 +82,18 @@
             </div>
         </div>
     </div>
-    <div class="pull-right">
-        <button type="button" grands-button="return" ui-sref="home.base" ng-show="entity.id"></button>
-        <button type="button" grands-button="cancel" ui-sref="home.base" ng-hide="entity.id"></button>
-        <button type="button" grands-button="save" ng-click="update(list)" ng-disabled="forms.$invalid"></button>
-    </div>
+    <gmd-fab force-click="false" fixed opened="!fabs">
+        <button class="bg-accent gmd-ripple"
+                type="button"
+                ng-class="{ 'gmd-disabled' : forms.$invalid }"
+                ng-click="update(list)">
+            <span class="material-icons">check</span>
+        </button>
+        <ul>
+            <li class="bg-primary" ui-sref="home.base">
+                <span>Voltar</span>
+                <i class="material-icons gmd-ripple">keyboard_backspace</i>
+            </li>
+        </ul>
+    </gmd-fab>
 </form>
