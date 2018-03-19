@@ -20,8 +20,10 @@ function StockFormController(StockService,
 
     var prom = null;
 
-    StockService.getTree().then(function (data) {
-        $scope.list = data.data.data;
+    StockService.getTree().then(function (resp) {
+        resp.data.data[1].oi = "3.6.";
+        resp.data.data[2].oi = "3.6.";
+        $scope.list = resp.data.data;
     });
 
     $scope.getChildrens = function (id, type) {
@@ -31,6 +33,7 @@ function StockFormController(StockService,
     var translateEntity = function (data) {
         var aux = {};
         aux.id = data.id;
+        aux.oi = data.oi;
         aux.version = data.version;
         aux.name = data.name;
         aux.characteristicsPT = data.characteristicsPT;
