@@ -73,7 +73,8 @@
                 </div>
                 <div class="ibox-content">
                     <div class="row">
-                        <grands-category-tree list="array" model-list="list" pattern="treePattern" charac-origin="OPERATION"
+                        <grands-category-tree list="array" layout="OPERATIONTYPE"
+                                              model-list="list" pattern="treePattern" charac-origin="OPERATION"
                                               type-attribute="stockType" get-childrens="getChildrens(id,type)"
                         update-entity="editOperation(data)" enable-remove="removable(data)"
                         delete-functions="deleteFunctions"></grands-category-tree>

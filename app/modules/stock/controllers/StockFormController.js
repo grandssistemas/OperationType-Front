@@ -21,8 +21,6 @@ function StockFormController(StockService,
     var prom = null;
 
     StockService.getTree().then(function (resp) {
-        resp.data.data[1].oi = "3.6.";
-        resp.data.data[2].oi = "3.6.";
         $scope.list = resp.data.data;
     });
 
@@ -59,6 +57,11 @@ function StockFormController(StockService,
 
     $scope.update = function (entity) {
         var aux = entity.map(translateEntity);
+
+        aux = aux.filter(function (ent) {
+            return !ent.id || ent.oi;
+        });
+
         StockService.saveTree(aux)
             .then(function () {
                 StockService.getTree().then(function (data) {
