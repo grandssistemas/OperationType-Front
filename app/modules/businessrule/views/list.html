@@ -18,7 +18,7 @@
                                         count="businessrule.count"
                                         page-model="page"
                                         max-height="400px"
-                                        on-page-change="businessrule.methods.get(page, pageSize)">
+                                        on-page-change="businessrule.methods.searchWithGQuery(businessrule.lastGQuery, page, pageSize)">
                             </gumga-list>
                         </div>
                     </div>
