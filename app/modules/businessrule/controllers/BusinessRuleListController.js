@@ -13,7 +13,13 @@ function BusinessRuleListController(ConfigService,
                                     GrandsLoadingService) {
     gumgaController.createRestMethods($scope, BusinessRuleService, 'businessrule');
     $scope.businessrule.execute('reset');
-    $scope.businessrule.methods.getLatestOperation();
+
+    var GQueryBase = new GQuery()
+        .select("obj.parcelsCount as parcelsCount")
+        .select("obj.id as id")
+        .select("obj.active as active");
+
+    $scope.businessrule.methods.searchWithGQuery(GQueryBase);
 
     $scope.businessrule.on('deleteSuccess', () => {
         $scope.businessrule.methods.getLatestOperation();
