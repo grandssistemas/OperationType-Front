@@ -1,10 +1,12 @@
 BusinessRuleListController.$inject = [
+    'ConfigService',
     '$scope',
     'gumgaController',
     'BusinessRuleService',
     '$rootScope',
     'GrandsLoadingService'];
-function BusinessRuleListController($scope,
+function BusinessRuleListController(ConfigService,
+                                    $scope,
                                     gumgaController,
                                     BusinessRuleService,
                                     $rootScope,
@@ -16,6 +18,10 @@ function BusinessRuleListController($scope,
     $scope.businessrule.on('deleteSuccess', () => {
         $scope.businessrule.methods.getLatestOperation();
     });
+
+    $scope.validBuddy = function (oi, id) {
+        return ConfigService.validateBuddy(oi, id);
+    };
 
     $scope.conf = {
         columns: 'parcelsCount,status,button',
@@ -109,8 +115,12 @@ function BusinessRuleListController($scope,
                 title: ' ',
                 size: 'col-md-1',
                 content: '<div align="center">' +
-                '<button ng-show="$value.active" type="button" ng-click="$parent.$parent.changeStatus($value)" class="btn-link center-block text-danger" uib-tooltip="Desativar"><i class="fa fa-times"></i></button>' +
-                '<button ng-show="!$value.active" type="button" ng-click="$parent.$parent.changeStatus($value)" class="btn-link center-block text-success" uib-tooltip="Ativar"><i class="fa fa-check"></i></button>' +
+                '<button style="display:inline-block" ' +
+                'type="button"' +
+                'ng-show="!$parent.$parent.validBuddy($value.oi.value, $value.id)" uib-tooltip="Este registro é publico" ' +
+                'class="btn-link btn-xs"><i class="fa fa-users" aria-hidden="true"></i></button>' +
+                '<button ng-show="$value.active" type="button" ng-click="$parent.$parent.changeStatus($value)" class="btn-link  text-danger" uib-tooltip="Desativar"><i class="fa fa-times"></i></button>' +
+                '<button ng-show="!$value.active" type="button" ng-click="$parent.$parent.changeStatus($value)" class="btn-link  text-success" uib-tooltip="Ativar"><i class="fa fa-check"></i></button>' +
                 '</div>'
             }
         ]
@@ -127,10 +137,22 @@ function BusinessRuleListController($scope,
     }
 
     $scope.changeStatus = function (entity) {
-        $rootScope.$broadcast('hideNextMessage', true);
-        BusinessRuleService.changeStatus(entity.id).then((response) => {
-            $scope.businessrule.methods.getLatestOperation();
-        });
+        if ($scope.validBuddy(entity.oi, entity.id)) {
+            console.log('registro normal');
+            $rootScope.$broadcast('hideNextMessage', true);
+            BusinessRuleService.changeStatus(entity.id).then((response) => {
+                $scope.businessrule.methods.getLatestOperation();
+            });
+        } else {
+            console.log('registro publico');
+            BusinessRuleService.deleteRecord(entity.id).then(function () {
+                $scope.businessrule.methods.getLatestOperation();
+            });
+        }
+
+
+
+
     };
 
     function update(values) {

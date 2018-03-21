@@ -1,4 +1,5 @@
 BusinessRuleService.$inject = ['GumgaRest', 'apiLocation', '$q'];
+
 function BusinessRuleService(GumgaRest, apiLocation, $q) {
     var service = new GumgaRest(apiLocation + '/api/businessrule');
 
@@ -9,6 +10,7 @@ function BusinessRuleService(GumgaRest, apiLocation, $q) {
             data.identifier = identifier;
             return data;
         });
+        c
     };
 
     service.saveEntityRule = function (entity) {
@@ -34,6 +36,12 @@ function BusinessRuleService(GumgaRest, apiLocation, $q) {
             operationTypes: operations
         })
     };
+
+    service.deleteRecord = function (id) {
+        return service.extend('post', '/deleterecord/' + id);
+    }
+
     return service;
 }
+
 module.exports = BusinessRuleService;
