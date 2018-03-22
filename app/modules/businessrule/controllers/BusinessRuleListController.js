@@ -4,20 +4,23 @@ BusinessRuleListController.$inject = [
     'gumgaController',
     'BusinessRuleService',
     '$rootScope',
-    'GrandsLoadingService'];
+    'GrandsLoadingService',
+    'SweetAlert'];
+
 function BusinessRuleListController(ConfigService,
                                     $scope,
                                     gumgaController,
                                     BusinessRuleService,
                                     $rootScope,
-                                    GrandsLoadingService) {
+                                    GrandsLoadingService,
+                                    SweetAlert) {
     gumgaController.createRestMethods($scope, BusinessRuleService, 'businessrule');
     $scope.businessrule.execute('reset');
 
     var GQueryBase = new GQuery()
-        .select("obj.parcelsCount as parcelsCount")
-        .select("obj.id as id")
-        .select("obj.active as active");
+    // .select("obj.parcelsCount as parcelsCount")
+    // .select("obj.id as id")
+    // .select("obj.active as active");
 
     $scope.businessrule.methods.searchWithGQuery(GQueryBase);
 
@@ -113,7 +116,7 @@ function BusinessRuleListController(ConfigService,
                 title: '<div align="center"><strong gumga-translate-tag="businessrule.status">status</strong></div>',
                 content: '<div align="center">' +
                 '<span class="badge badge-primary" ng-show="$value.active"  gumga-translate-tag="businessrule.active">Ativo</span>' +
-                '<span class="badge badge-danger"  ng-show="!$value.active" gumga-translate-tag="businessrule.inative" >Inativo</span> ' +
+                '<span class="badge badge-danger"  ng-show="!$value.active" gumga-translate-tag="businessrule.inative" >Inativo</span>' +
                 '</div>'
             },
             {
@@ -144,22 +147,37 @@ function BusinessRuleListController(ConfigService,
 
     $scope.changeStatus = function (entity) {
         if ($scope.validBuddy(entity.oi, entity.id)) {
-            console.log('registro normal');
             $rootScope.$broadcast('hideNextMessage', true);
             BusinessRuleService.changeStatus(entity.id).then((response) => {
                 $scope.businessrule.methods.getLatestOperation();
             });
         } else {
-            console.log('registro publico');
-            BusinessRuleService.deleteRecord(entity.id).then(function () {
-                $scope.businessrule.methods.getLatestOperation();
-            });
+            SweetAlert.swal({
+                    title: 'Atenção.',
+                    text: 'Deseja realmente inativar este registro?',
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: '#DD6B55', confirmButtonText: "Sim",
+                    cancelButtonText: 'Não',
+                    closeOnConfirm: false,
+                    closeOnCancel: true
+                },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        BusinessRuleService.deleteRecord(entity.id).then(function () {
+                            $scope.businessrule.methods.getLatestOperation();
+                        });
+                        SweetAlert.swal("Pronto!", "Inativado com sucesso", "success");
+                    }
+                });
+
+
         }
-
-
-
-
     };
+
+
+
+
 
     function update(values) {
         $scope.content = values.data;
@@ -170,4 +188,5 @@ function BusinessRuleListController(ConfigService,
     $scope.format['MAIOR_QUE'] = 'Maior que';
     $scope.format['MAIOR_OU_IGUAL_QUE'] = 'Maior ou igual a';
 }
+
 module.exports = BusinessRuleListController;
