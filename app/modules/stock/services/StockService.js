@@ -23,6 +23,14 @@ function StockService(GumgaRest, apiLocation, $q) {
         return service.extend('get', '/documentfinality');
     };
 
+    service.copyRecord = function (id) {
+        return this.extend('post', '/copyrecord/' + id);
+    };
+
+    service.deleteRecord = function (id) {
+        return this.extend('delete', '/deleterecord/' + id);
+    };
+
     return service;
 }
 module.exports = StockService;
