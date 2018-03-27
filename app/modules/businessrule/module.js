@@ -36,8 +36,8 @@ module.exports = angular.module('app.businessrule', ['ui.router', 'app.businessr
                     operations: null
                 },
                 resolve: {
-                    operations: ['$stateParams', function ($stateParams) {
-                        return $stateParams.operations || []
+                    operations: ['$transition$', function ($transition$) {
+                        return $transition$.params().operations || []
                     }]
                 }
             })
