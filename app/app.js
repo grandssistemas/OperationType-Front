@@ -18,18 +18,18 @@ module.exports = angular.module('operationtype.core', [
 ])
     .config(function ($stateProvider) {
         $stateProvider
-            .state('stock', {
+            .state('app.stock', {
                 data: {
                     id: 1
                 },
                 url: '/stock',
-                templateUrl: baseOperation
+                abstract: true
             })
-            .state('businessrule', {
+            .state('app.businessrule', {
                 data: {
                     id: 1
                 },
                 url: '/businessrule',
-                templateUrl: baseOperation
+                abstract: true
             })
     });
