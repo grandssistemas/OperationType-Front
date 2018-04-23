@@ -47,11 +47,11 @@ function BusinessRuleStepOneController($scope,
     };
 
     $scope.back = function () {
-        $state.go('businessrule.list');
+        $state.go('app.businessrule.list');
     }
 
     $scope.nextStep = function () {
-        $state.go('businessrule.steptwo', {operations: $scope.selectedOperations});
+        $state.go('app.businessrule.steptwo', {operations: $scope.selectedOperations});
     }
 
 

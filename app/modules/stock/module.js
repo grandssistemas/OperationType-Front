@@ -6,7 +6,7 @@ let form = require('./views/form.html');
 module.exports = angular.module('app.stock', ['ui.router', 'app.stock.controllers', 'app.stock.services'])
     .config(['$stateProvider', function ($stateProvider) {
         $stateProvider
-            .state('stock.insert', {
+            .state('app.stock.insert', {
                 url: '/insert',
                 templateUrl: form,
                 controller: 'StockFormController',
