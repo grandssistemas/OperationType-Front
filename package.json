@@ -1,6 +1,6 @@
 {
-  "name": "operation-type",
-  "version": "1.0.1",
+  "name": "@mobiage/operationtype-front",
+  "version": "1.0.0",
   "description": "description",
   "main": "index.js",
   "author": "",
