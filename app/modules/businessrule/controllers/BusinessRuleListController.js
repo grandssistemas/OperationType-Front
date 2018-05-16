@@ -4,7 +4,7 @@ BusinessRuleListController.$inject = [
     'gumgaController',
     'BusinessRuleService',
     '$rootScope',
-    'GrandsLoadingService',
+    'MbgPageLoader',
     'SweetAlert'];
 
 function BusinessRuleListController(ConfigService,
@@ -12,7 +12,7 @@ function BusinessRuleListController(ConfigService,
                                     gumgaController,
                                     BusinessRuleService,
                                     $rootScope,
-                                    GrandsLoadingService,
+                                    MbgPageLoader,
                                     SweetAlert) {
     gumgaController.createRestMethods($scope, BusinessRuleService, 'businessrule');
     $scope.businessrule.execute('reset');
@@ -137,7 +137,7 @@ function BusinessRuleListController(ConfigService,
 
     function searchByStatus(status) {
         let param = status === "ALL" ? 'obj.active=true or obj.active=false' : `obj.active=${status}`;
-        GrandsLoadingService.openModal(BusinessRuleService.getAdvancedSearch(param), "Atualizando lista").then((response) => {
+        MbgPageLoader.open(BusinessRuleService.getAdvancedSearch(param), "Atualizando lista").then((response) => {
             $scope.businessrule.data = response.data.values;
             $scope.businessrule.pageSize = response.data.pageSize;
             $scope.businessrule.count = response.data.count;
