@@ -27,6 +27,8 @@ function StockFormController(StockService,
         $scope.list = resp.data.data;
     });
 
+    $scope.validApiName = ConfigService.validadeApiName();
+
     $scope.validBuddy = function (oi, id) {
         return ConfigService.validateBuddy(oi, id);
     };
