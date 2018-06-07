@@ -32,7 +32,7 @@ function BusinessRuleStepTwoController($scope,
     }
 
 
-    $scope.active = true;
+    $scope.active = false;
     $scope.selectedEntryType = [];
     $scope.selectedParcelType = [];
 
