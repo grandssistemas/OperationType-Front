@@ -1,7 +1,7 @@
 <form name="forms" novalidate>
-    <div class="row">
+    <div class="row" ng-show="validApiName">
         <div class="col-lg-6">
-            <div class="ibox float-e-margins ">
+            <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5><span gumga-translate-tag="stock.title">Title</span></h5>
                 </div>
@@ -66,14 +66,15 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-md-12">
             <div class="ibox float-e-margins ">
                 <div class="ibox-title">
                     <h5><span gumga-translate-tag="stock.entranceandexit">Entrance and Exit</span></h5>
                 </div>
                 <div class="ibox-content">
                     <div class="row">
-                        <grands-category-tree list="array" model-list="list" pattern="treePattern" charac-origin="OPERATION"
+                        <grands-category-tree list="array" layout="OPERATIONTYPE"
+                                              model-list="list" pattern="treePattern" charac-origin="OPERATION"
                                               type-attribute="stockType" get-childrens="getChildrens(id,type)"
                         update-entity="editOperation(data)" enable-remove="removable(data)"
                         delete-functions="deleteFunctions"></grands-category-tree>
@@ -90,7 +91,7 @@
             <span class="material-icons">check</span>
         </button>
         <ul>
-            <li class="bg-primary" ui-sref="home.base">
+            <li class="bg-primary" ui-sref="app.home">
                 <span>Voltar</span>
                 <i class="material-icons gmd-ripple">keyboard_backspace</i>
             </li>

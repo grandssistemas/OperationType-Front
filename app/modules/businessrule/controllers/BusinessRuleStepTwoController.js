@@ -27,12 +27,12 @@ function BusinessRuleStepTwoController($scope,
             confirmButtonText: "OK",
             closeOnConfirm: true
         }, function () {
-            $state.go('businessrule.stepone');
+            $state.go('app.businessrule.stepone');
         })
     }
 
 
-    $scope.active = true;
+    $scope.active = false;
     $scope.selectedEntryType = [];
     $scope.selectedParcelType = [];
 
@@ -99,7 +99,7 @@ function BusinessRuleStepTwoController($scope,
     $scope.confEntry.columns = 'name';
 
     $scope.back = function () {
-        $state.go('businessrule.stepone');
+        $state.go('app.businessrule.stepone');
     };
 
     $scope.generate = function () {
@@ -138,7 +138,7 @@ function BusinessRuleStepTwoController($scope,
         }
 
         BusinessRuleService.saveWithOperationType($scope.operations, generated).then(function () {
-            $state.go('businessrule.list');
+            $state.go('app.businessrule.list');
         });
     };
 

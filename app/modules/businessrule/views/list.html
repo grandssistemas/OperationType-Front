@@ -5,7 +5,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="col-md-5">
-                            <button type="button" class="btn gmd fab fixed btn-primary gmd-ripple" ui-sref="businessrule.stepone" >
+                            <button type="button" class="btn gmd fab fixed btn-primary gmd-ripple" ui-sref="app.businessrule.stepone" >
                                 <i class="material-icons">add</i>
                             </button>
                         </div>
@@ -18,7 +18,7 @@
                                         count="businessrule.count"
                                         page-model="page"
                                         max-height="400px"
-                                        on-page-change="businessrule.methods.get(page, pageSize)">
+                                        on-page-change="businessrule.methods.searchWithGQuery(businessrule.lastGQuery, page, pageSize)">
                             </gumga-list>
                         </div>
                     </div>

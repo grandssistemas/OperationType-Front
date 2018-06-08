@@ -3,12 +3,15 @@ StockFormController.$inject = [
     'entity',
     '$scope',
     'OperationTypeService',
-    '$q'];
+    '$q',
+    'ConfigService'];
+
 function StockFormController(StockService,
                              entity,
                              $scope,
                              OperationTypeService,
-                             $q) {
+                             $q,
+                             ConfigService) {
     StockService.resetDefaultState();
     $scope.entity = angular.copy(entity.data);
     $scope.continue = {};
@@ -20,9 +23,15 @@ function StockFormController(StockService,
 
     var prom = null;
 
-    StockService.getTree().then(function (data) {
-        $scope.list = data.data.data;
+    StockService.getTree().then(function (resp) {
+        $scope.list = resp.data.data;
     });
+
+    $scope.validApiName = ConfigService.validadeApiName();
+
+    $scope.validBuddy = function (oi, id) {
+        return ConfigService.validateBuddy(oi, id);
+    };
 
     $scope.getChildrens = function (id, type) {
         return StockService.getChildrens(id, type);
@@ -31,6 +40,7 @@ function StockFormController(StockService,
     var translateEntity = function (data) {
         var aux = {};
         aux.id = data.id;
+        aux.oi = data.oi;
         aux.version = data.version;
         aux.name = data.name;
         aux.characteristicsPT = data.characteristicsPT;
@@ -56,6 +66,11 @@ function StockFormController(StockService,
 
     $scope.update = function (entity) {
         var aux = entity.map(translateEntity);
+
+        aux = aux.filter(function (ent) {
+            return $scope.validBuddy(ent.oi, ent.id);
+        });
+
         StockService.saveTree(aux)
             .then(function () {
                 StockService.getTree().then(function (data) {
@@ -131,4 +146,5 @@ function StockFormController(StockService,
         $scope.operationCategoryList = data.data;
     });
 }
+
 module.exports = StockFormController;

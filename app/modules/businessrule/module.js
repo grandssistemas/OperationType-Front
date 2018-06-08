@@ -8,13 +8,13 @@ let stepTwo = require('./views/BusinessRuleStepTwo.html');
 module.exports = angular.module('app.businessrule', ['ui.router', 'app.businessrule.controllers', 'app.businessrule.services', 'api.location'])
     .config(['$stateProvider', function ($stateProvider) {
         $stateProvider
-            .state('businessrule.list', {
+            .state('app.businessrule.list', {
                 url: '/list',
                 templateUrl: list,
                 controller: 'BusinessRuleListController',
                 data: {id: 2}
             })
-            .state('businessrule.stepone', {
+            .state('app.businessrule.stepone', {
                 url: '/insert/stepone',
                 templateUrl: stepOne,
                 controller: 'BusinessRuleStepOneController',
@@ -27,7 +27,7 @@ module.exports = angular.module('app.businessrule', ['ui.router', 'app.businessr
                     }]
                 }
             })
-            .state('businessrule.steptwo', {
+            .state('app.businessrule.steptwo', {
                 url: '/insert/steptwo',
                 templateUrl: stepTwo,
                 controller: 'BusinessRuleStepTwoController',
@@ -36,8 +36,8 @@ module.exports = angular.module('app.businessrule', ['ui.router', 'app.businessr
                     operations: null
                 },
                 resolve: {
-                    operations: ['$stateParams', function ($stateParams) {
-                        return $stateParams.operations || []
+                    operations: ['$transition$', function ($transition$) {
+                        return $transition$.params().operations || []
                     }]
                 }
             })

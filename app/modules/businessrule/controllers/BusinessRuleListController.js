@@ -1,21 +1,36 @@
 BusinessRuleListController.$inject = [
+    'ConfigService',
     '$scope',
     'gumgaController',
     'BusinessRuleService',
     '$rootScope',
-    'GrandsLoadingService'];
-function BusinessRuleListController($scope,
+    'MbgPageLoader',
+    'SweetAlert'];
+
+function BusinessRuleListController(ConfigService,
+                                    $scope,
                                     gumgaController,
                                     BusinessRuleService,
                                     $rootScope,
-                                    GrandsLoadingService) {
+                                    MbgPageLoader,
+                                    SweetAlert) {
     gumgaController.createRestMethods($scope, BusinessRuleService, 'businessrule');
     $scope.businessrule.execute('reset');
-    $scope.businessrule.methods.getLatestOperation();
+
+    var GQueryBase = new GQuery()
+    // .select("obj.parcelsCount as parcelsCount")
+    // .select("obj.id as id")
+    // .select("obj.active as active");
+
+    $scope.businessrule.methods.searchWithGQuery(GQueryBase);
 
     $scope.businessrule.on('deleteSuccess', () => {
         $scope.businessrule.methods.getLatestOperation();
     });
+
+    $scope.validBuddy = function (oi, id) {
+        return ConfigService.validateBuddy(oi, id);
+    };
 
     $scope.conf = {
         columns: 'parcelsCount,status,button',
@@ -101,7 +116,7 @@ function BusinessRuleListController($scope,
                 title: '<div align="center"><strong gumga-translate-tag="businessrule.status">status</strong></div>',
                 content: '<div align="center">' +
                 '<span class="badge badge-primary" ng-show="$value.active"  gumga-translate-tag="businessrule.active">Ativo</span>' +
-                '<span class="badge badge-danger"  ng-show="!$value.active" gumga-translate-tag="businessrule.inative" >Inativo</span> ' +
+                '<span class="badge badge-danger"  ng-show="!$value.active" gumga-translate-tag="businessrule.inative" >Inativo</span>' +
                 '</div>'
             },
             {
@@ -109,8 +124,12 @@ function BusinessRuleListController($scope,
                 title: ' ',
                 size: 'col-md-1',
                 content: '<div align="center">' +
-                '<button ng-show="$value.active" type="button" ng-click="$parent.$parent.changeStatus($value)" class="btn-link center-block text-danger" uib-tooltip="Desativar"><i class="fa fa-times"></i></button>' +
-                '<button ng-show="!$value.active" type="button" ng-click="$parent.$parent.changeStatus($value)" class="btn-link center-block text-success" uib-tooltip="Ativar"><i class="fa fa-check"></i></button>' +
+                '<button style="display:inline-block" ' +
+                'type="button"' +
+                'ng-show="!$parent.$parent.validBuddy($value.oi.value, $value.id)" uib-tooltip="Este registro é publico" ' +
+                'class="btn-link btn-xs"><i class="fa fa-users" aria-hidden="true"></i></button>' +
+                '<button ng-show="$value.active" type="button" ng-click="$parent.$parent.changeStatus($value)" class="btn-link  text-danger" uib-tooltip="Desativar"><i class="fa fa-times"></i></button>' +
+                '<button ng-show="!$value.active" type="button" ng-click="$parent.$parent.changeStatus($value)" class="btn-link  text-success" uib-tooltip="Ativar"><i class="fa fa-check"></i></button>' +
                 '</div>'
             }
         ]
@@ -118,7 +137,7 @@ function BusinessRuleListController($scope,
 
     function searchByStatus(status) {
         let param = status === "ALL" ? 'obj.active=true or obj.active=false' : `obj.active=${status}`;
-        GrandsLoadingService.openModal(BusinessRuleService.getAdvancedSearch(param), "Atualizando lista").then((response) => {
+        MbgPageLoader.open(BusinessRuleService.getAdvancedSearch(param), "Atualizando lista").then((response) => {
             $scope.businessrule.data = response.data.values;
             $scope.businessrule.pageSize = response.data.pageSize;
             $scope.businessrule.count = response.data.count;
@@ -127,11 +146,38 @@ function BusinessRuleListController($scope,
     }
 
     $scope.changeStatus = function (entity) {
-        $rootScope.$broadcast('hideNextMessage', true);
-        BusinessRuleService.changeStatus(entity.id).then((response) => {
-            $scope.businessrule.methods.getLatestOperation();
-        });
+        if ($scope.validBuddy(entity.oi, entity.id)) {
+            $rootScope.$broadcast('hideNextMessage', true);
+            BusinessRuleService.changeStatus(entity.id).then((response) => {
+                $scope.businessrule.methods.getLatestOperation();
+            });
+        } else {
+            SweetAlert.swal({
+                    title: 'Atenção.',
+                    text: 'Deseja realmente inativar este registro?',
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: '#DD6B55', confirmButtonText: "Sim",
+                    cancelButtonText: 'Não',
+                    closeOnConfirm: false,
+                    closeOnCancel: true
+                },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        BusinessRuleService.deleteRecord(entity.id).then(function () {
+                            $scope.businessrule.methods.getLatestOperation();
+                        });
+                        SweetAlert.swal("Pronto!", "Inativado com sucesso", "success");
+                    }
+                });
+
+
+        }
     };
+
+
+
+
 
     function update(values) {
         $scope.content = values.data;
@@ -142,4 +188,5 @@ function BusinessRuleListController($scope,
     $scope.format['MAIOR_QUE'] = 'Maior que';
     $scope.format['MAIOR_OU_IGUAL_QUE'] = 'Maior ou igual a';
 }
+
 module.exports = BusinessRuleListController;
