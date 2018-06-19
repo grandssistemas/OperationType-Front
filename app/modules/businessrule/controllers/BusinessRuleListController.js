@@ -20,6 +20,7 @@ function BusinessRuleListController(ConfigService,
     var GQueryBase = new GQuery()
     .select("obj.parcelsCount as parcelsCount")
     .select("obj.id as id")
+    .select("obj.oi as oi")
     .select("obj.active as active");
 
     $scope.businessrule.methods.searchWithGQuery(GQueryBase);
