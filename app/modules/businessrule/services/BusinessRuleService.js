@@ -41,6 +41,10 @@ function BusinessRuleService(GumgaRest, apiLocation, $q) {
         return service.extend('post', '/deleterecord/' + id);
     }
 
+    service.getPublicRecordExclusion = function() {
+        service.extend('get', '/record-exclusion')
+    }
+
     return service;
 }
 
